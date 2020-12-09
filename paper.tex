@@ -1,7 +1,7 @@
 \documentclass[conference]{IEEEtran}
 \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-\usepackage{cite}
+%\usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -22,9 +22,7 @@ style=numeric-comp,
 \author{\IEEEauthorblockN{Naman Arora}
         \IEEEauthorblockA{Graduate Student, CISE Department}
         University of Florida\\
-        Gainesville, Florida \\
-        naman.arora@ufl.edu
-        }
+        naman.arora@ufl.edu }
 
 \maketitle
 
@@ -46,12 +44,12 @@ As the internet becomes the backbone of current economy and the lives of billion
 Various groups have published methods and studies leveraging a variety of different techniques on how to predict and stifle such adversarial attacks.
 Once such area of active study is modeling the behavior of adversaries and system administrators using a \textit{Game Theoretic} approach
 \subsection*{Taxonomy of Games}
-Roy \textit{et. al}\cite{survey} put forth an illuminating study on the tends of such endeavors in 2010.
+Roy \textit{et al.}\cite{survey} put forth an illuminating study on the tends of such endeavors in 2010.
 They present a taxonomy of research for the classification of such games.
 The research can be divided into two types of games \textit{viz.},
 \begin{itemize}
     \item{Non-Cooperative Games}\\
-        Non-Cooperative games are where the players have no possibility of cooperation.
+        Games where the players have no possibility of cooperation.
         Most of the research in Computer/Network security falls under this type of game theory.
         This further gets sub-divided into two sections \textit{viz},
         \begin{itemize}
@@ -62,20 +60,12 @@ The research can be divided into two types of games \textit{viz.},
             This is a type of game with more than one stages.
             The sequences of such a game can either be finite or infinite.
         \end{itemize}
-        The following subsections go into further detail of \textit{Static} and \textit{Dynamic} Games.
+        The following sections go into further detail of \textit{Static} and \textit{Dynamic} Games.
     \item{Cooperative Games}\\
-        Cooperative Games are where the players have a possibility of falling into some kind of cooperation \cite{wiki-coop}.
+        Games where the players have a possibility of falling into some kind of cooperation \cite{wiki-coop}.
 \end{itemize}
 
-\subsection*{Static Games}
-The static games, since by definition have imperfect definition, this leads to a single base of classification of such games.
-Static games further classified into,
-\begin{itemize}
-    \item Complete and Imperfect Information
-    \item Incomplete and Imperfect Information
-\end{itemize}
-
-\subsection*{Dynamic Games}
+\section*{Dynamic Games}
 Dynamic Games have two guiding pillars of for further classification \textit{viz.}, how \textit{complete} and \textit{perfect} information does the player have.
 This further leads to a classification like,
 \begin{itemize}
@@ -85,9 +75,6 @@ This further leads to a classification like,
     \item Incomplete and Imperfect Information
 \end{itemize}
 
-The next two sections present two separate approaches to model the security model in different game theoretic methods.
-
-\section*{Stochastic 2-Player Game Model}
 Stochastic games \cite{wiki-stochastic} are a type of \textit{dynamic games} with probabilistic transitions played by two or more players.
 The game begins with a \textit{stage}.
 The game then transitions into another random \textit{stage} based on the actions chosen by the players as well as the preceding stage.
@@ -108,12 +95,46 @@ $\beta$ is the discount factor.
 Discount factor $\beta$ defines how motivate the particular player is.
 A high value of $\beta$ implies the actor maybe a \textit{cybercriminal} driven by short term profits while a low value of $\beta$ might suggest some kind of \textit{nation state actor} in \textit{Cyber Threat Actors} classification \cite{cyberactor}.
 
-% PAPER 1 (Survey)
-% PAPER 2 (Stocastic GT in network security)
-% Notes
-% 1. Explain stocastic model in realtion to the premis of the problem, i.e. use th stocastic model to explain why authors chose it.
-% 2. Introduce the formal model of the stocastic game including the \beta and its importance.
+The state of the network is defined as a tuple
+\begin{equation}
+	<n_{W}, n_{F}, n_{N}, t>
+\end{equation}
+where,\\
+$W$ represents the \textit{web server} resource, $F$ represents the \textit{file server} resource and $N$ represents a private workstation with access to resources.
+Also, $n_{X} = <P,a,d>, X\in \{W, F, N\}$ represents the network state of the respective resources where,\\
+$P$ is the list of applications running on $n_{X}$, $a$ represents if any user accounts have been compromised and $d$ represents data integrity.
+Model describes a set of actions which each of the players $p \in \{administrator,attacker\}$ can take.
+State transition and its probabilities depend on the experience of the network managers as well as the attackers.
+\textit{Payoffs} for the attackers is modeled as equivalent to the cost for the administrators, which is the time and effort spent in recovering the network.
+The model uses the following to find Nash equilibrium,
+\begin{equation} \label{NSP-1}
+	min_{u^{1},u^{2},\sigma^{1},\sigma^{2}} \mathbf{1}^{\mathbf{T}}[u^{k} - R^{k}(\sigma^{1},\sigma^{2}) - \beta P(\sigma^{1},\sigma^{2})u^{k}], k \in \{1,2\}
+\end{equation}
+where, $u^{k} \in \mathbf{R}^{\mathbf{N}}$ are variables for value vectors, $\sigma^{k}$ are variables for strategies, and $\mathbf{1}$ is a unit vector.
+$R_{k}(\sigma^{1}, \sigma^{2})$ is a vector of rewards, $P(\sigma^{1}, \sigma^{2})$ is state transition probability matrix and $T(s,u)$ represents future rewards from next state onwards.
+Equation \ref{NSP-1} is subject to\\
+$R^{1}(\eta_{i})\sigma^{2}(\eta_{i}) + \beta T(\eta_{i},u^{1})\sigma^{2}(\eta_{i}) \le u^{1}\mathbf(1), i \in \mathbf{N}$ and \\
+$\sigma^{1}(\eta_{i})^{\mathbf{T}}R^{2}(\eta_{i}) + \beta\sigma^{1}(\eta_{i})^{\mathbf{T}}T(\eta_{i},u^{2}) \le u^{2}(\eta_{i})\mathbf{1}^{\mathbf{T}}, i \in \mathbf{N}$.
 
+A few peculiar criticisms of the approach, based on the ones pointed out by the authors, are,
+\begin{itemize}
+	\item The \textit{payoff} of the attackers just rely on the time and maintenance cost of the administrators.
+		This approach may not cover all the possible reasons why an adversary launches an attack, and in turn, how damaging an adversary might actually be.
+		Take for example, an adversary with low magnitude $\beta$, say a \textit{Nation State Actor}.
+		Such an adversary does no harm to the usual operations in short term and hence can be classified by the model with lesser \textit{payoff} while in reality, \textit{Nation State Actors} cause most the harm.
+	\item A network which serves even a medium sized business has a lot more nodes than analyzed here.
+		This ties into the fact that such an analysis would exponentially grow as more real world components are added.
+		This also applies to the number of programs per node and possible actions for both the attacker and the administrators.
+	\item The model also assumes that the actions by a player happen only at discrete time intervals, which is impractical in real world scenario.
+\end{itemize}
+
+\section*{Static Games}
+The static games, since by definition have imperfect definition, this leads to a single base of classification of such games.
+Static games further classified into,
+\begin{itemize}
+    \item Complete and Imperfect Information
+    \item Incomplete and Imperfect Information
+\end{itemize}
 
 %\begin{figure}[htbp]
 %\centerline{\includegraphics{fig1.png}}
