@@ -7,8 +7,14 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[
+backend=biber,
+style=numeric-comp,
+]{biblatex}
+\addbibresource{refs.bib}
+
 \begin{document}
 
 \title{A Literature Survey of Game Theoritic Models in Network Security}
@@ -23,21 +29,85 @@
 \maketitle
 
 \begin{abstract}
-        Internet has become the backbone of the world economy and lives of people all around the world.
+        Internet has become the backbone of the economy and the lives of billions people all around the world.
         As internet and its reach grew, so did the need for combating the adversaries that attack such services.
-        The article is intended to present a survey of novel approaches in fending off the adversaries in a model network using Game Theoretic approach.
-        From taxonomies of the types of game theoretic adversary modelling to stochastic model based combating approach.
+        Game theory at its heart is the study of interactions of players in warring and opposite positions, which provides a great premise to study the interactions of cyber-adversaries with system administrators.
+        The article is intended to present a survey of approaches in fending off the adversaries in a model network using game theoretic approach.
+        From taxonomies of the types of game theoretic adversary modeling to stochastic model based combating approach.
 \end{abstract}
 
 \begin{IEEEkeywords}
-        Game-Theory, Cyber security
+        Game-Theory, Internet Security
 \end{IEEEkeywords}
 
-\section{Introduction}
+\section*{Introduction}
 Since the \textit{dot-com bubble}, the internet has been laden with malicious actors motivated by lure of profit and fun.
 As the internet becomes the backbone of current economy and the lives of billions of people, serious advancements in methods of detection and advancements of such adversaries are required.
 Various groups have published methods and studies leveraging a variety of different techniques on how to predict and stifle such adversarial attacks.
-Once such area of active study is modelling the behaviour of adversaries and system administrators using a \textit{Game Theoritic} approach.
+Once such area of active study is modeling the behavior of adversaries and system administrators using a \textit{Game Theoretic} approach
+\subsection*{Taxonomy of Games}
+Roy \textit{et. al}\cite{survey} put forth an illuminating study on the tends of such endeavors in 2010.
+They present a taxonomy of research for the classification of such games.
+The research can be divided into two types of games \textit{viz.},
+\begin{itemize}
+    \item{Non-Cooperative Games}\\
+        Non-Cooperative games are where the players have no possibility of cooperation.
+        Most of the research in Computer/Network security falls under this type of game theory.
+        This further gets sub-divided into two sections \textit{viz},
+        \begin{itemize}
+            \item{Static Games}\\
+            This is modeled as a on-shot game in which each player chooses his plan of action and all the players' decisions are made simultaneously.
+            This by definition is an incomplete information game.
+            \item{Dynamic Games}\\
+            This is a type of game with more than one stages.
+            The sequences of such a game can either be finite or infinite.
+        \end{itemize}
+        The following subsections go into further detail of \textit{Static} and \textit{Dynamic} Games.
+    \item{Cooperative Games}\\
+        Cooperative Games are where the players have a possibility of falling into some kind of cooperation \cite{wiki-coop}.
+\end{itemize}
+
+\subsection*{Static Games}
+The static games, since by definition have imperfect definition, this leads to a single base of classification of such games.
+Static games further classified into,
+\begin{itemize}
+    \item Complete and Imperfect Information
+    \item Incomplete and Imperfect Information
+\end{itemize}
+
+\subsection*{Dynamic Games}
+Dynamic Games have two guiding pillars of for further classification \textit{viz.}, how \textit{complete} and \textit{perfect} information does the player have.
+This further leads to a classification like,
+\begin{itemize}
+    \item Complete and Perfect Information
+    \item Incomplete and Perfect Information
+    \item Complete and Imperfect Information
+    \item Incomplete and Imperfect Information
+\end{itemize}
+
+The next two sections present two separate approaches to model the security model in different game theoretic methods.
+
+\section*{Stochastic 2-Player Game Model}
+Stochastic games \cite{wiki-stochastic} are a type of \textit{dynamic games} with probabilistic transitions played by two or more players.
+The game begins with a \textit{stage}.
+The game then transitions into another random \textit{stage} based on the actions chosen by the players as well as the preceding stage.
+Each player receives a \textit{payoff} based on the current \textit{stage} and the actions they choose.
+
+Lye \textit{et. al} \cite{stochastic} in 2005 proposed a method of modeling a network security scenario based on Stochastic games approach.
+The model describes a network with a border router, firewall, a web server, a file server along with a private workstation.
+The presented game, more formally, is a tuple,
+\begin{equation} \label{sto_tup}
+    (S, A_{1}, A_{2}, Q, R_{1}, R_{2}, \beta)
+\end{equation}
+where,\\
+$S$ is the state set, such that $ \{\eta_{1}...\eta_{N}\}$ are the $N$ states,\\
+$A^{k} = \{\alpha^{k}_{1}..\alpha^{k}_{M_{k}}\}$ is the action set of player $ k \in \{1, 2\}$ and action set of player $k$ at state $s\in S$ is $A^{k}_{s} \subset A^{k}$,\\
+$Q: S\times A_{1} \times A_{2} \times S \rightarrow [0,1]$ is state transition function,\\
+$R^{k}: S\times A_{1} \times A_{2} \rightarrow \mathbf{R},\ k \in \{1,2\}$,\\
+$\beta$ is the discount factor.
+Discount factor $\beta$ defines how motivate the particular player is.
+A high value of $\beta$ implies the actor maybe a \textit{cybercriminal} driven by short term profits while a low value of $\beta$ might suggest some kind of \textit{nation state actor} in \textit{Cyber Threat Actors} classification \cite{cyberactor}.
+
 % PAPER 1 (Survey)
 % PAPER 2 (Stocastic GT in network security)
 % Notes
@@ -50,8 +120,6 @@ Once such area of active study is modelling the behaviour of adversaries and sys
 %\caption{Example of a figure caption.}
 %\label{fig}
 %\end{figure}
-
-\bibliographystyle{ieeetr}
-\bibliography{refs.bib}
+\printbibliography
 
 \end{document}
