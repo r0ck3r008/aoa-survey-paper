@@ -31,11 +31,11 @@ style=numeric-comp,
         As internet and its reach grew, so did the need for combating the adversaries that attack such services.
         Game theory at its heart is the study of interactions of players in warring and opposite positions, which provides a great premise to study the interactions of cyber-adversaries with system administrators.
         The article is intended to present a survey of approaches in fending off the adversaries in a model network using game theoretic approach.
-        From taxonomies of the types of game theoretic adversary modeling to stochastic model based combating approach.
+        From taxonomies of the types of game theoretic adversary modeling to stochastic dynamic game and static imperfect information game modeling, the article goes over some of the published work in this area of study.
 \end{abstract}
 
 \begin{IEEEkeywords}
-        Game-Theory, Internet Security
+        Game-Theory, Internet Security, Stochastic Games, Static Games
 \end{IEEEkeywords}
 
 \section*{Introduction}
@@ -46,7 +46,7 @@ Once such area of active study is modeling the behavior of adversaries and syste
 \subsection*{Taxonomy of Games}
 Roy \textit{et al.}\cite{survey} put forth an illuminating study on the tends of such endeavors in 2010.
 They present a taxonomy of research for the classification of such games.
-The research can be divided into two types of games \textit{viz.},
+The research in Game Theory generally spans two types of games \textit{viz.},
 \begin{itemize}
     \item{Non-Cooperative Games}\\
         Games where the players have no possibility of cooperation.
@@ -54,20 +54,22 @@ The research can be divided into two types of games \textit{viz.},
         This further gets sub-divided into two sections \textit{viz},
         \begin{itemize}
             \item{Static Games}\\
-            This is modeled as a on-shot game in which each player chooses his plan of action and all the players' decisions are made simultaneously.
+            This is modeled as a one-shot game in which each player chooses his plan of action and all the players' decisions are made simultaneously.
             This by definition is an incomplete information game.
             \item{Dynamic Games}\\
             This is a type of game with more than one stages.
             The sequences of such a game can either be finite or infinite.
         \end{itemize}
-        The following sections go into further detail of \textit{Static} and \textit{Dynamic} Games.
     \item{Cooperative Games}\\
         Games where the players have a possibility of falling into some kind of cooperation \cite{wiki-coop}.
 \end{itemize}
 
+The following two section each summarize a work in dynamic and static game theory in the field of Network and Information security.
+The last section presents some concluding remarks.
+
 \section*{Dynamic Games}
-Dynamic Games have two guiding pillars of for further classification \textit{viz.}, how \textit{complete} and \textit{perfect} information does the player have.
-This further leads to a classification like,
+Dynamic Games have two guiding pillars of for further classification \textit{viz.}, how \textit{complete} and \textit{perfect} information do the players have.
+This leads to a classification like,
 \begin{itemize}
     \item Complete and Perfect Information
     \item Incomplete and Perfect Information
@@ -77,7 +79,7 @@ This further leads to a classification like,
 
 Stochastic games \cite{wiki-stochastic} are a type of \textit{dynamic games} with probabilistic transitions played by two or more players.
 The game begins with a \textit{stage}.
-The game then transitions into another random \textit{stage} based on the actions chosen by the players as well as the preceding stage.
+It then transitions into another random \textit{stage} based on the actions chosen by the players in this as well as the preceding stage.
 Each player receives a \textit{payoff} based on the current \textit{stage} and the actions they choose.
 
 Lye \textit{et. al} \cite{stochastic} in 2005 proposed a method of modeling a network security scenario based on Stochastic games approach.
@@ -86,7 +88,7 @@ The presented game, more formally, is a tuple,
 \begin{equation} \label{sto_tup}
     (S, A_{1}, A_{2}, Q, R_{1}, R_{2}, \beta)
 \end{equation}
-where,\\
+where,
 $S$ is the state set, such that $ \{\eta_{1}...\eta_{N}\}$ are the $N$ states,\\
 $A^{k} = \{\alpha^{k}_{1}..\alpha^{k}_{M_{k}}\}$ is the action set of player $ k \in \{1, 2\}$ and action set of player $k$ at state $s\in S$ is $A^{k}_{s} \subset A^{k}$,\\
 $Q: S\times A_{1} \times A_{2} \times S \rightarrow [0,1]$ is state transition function,\\
@@ -99,7 +101,7 @@ The state of the network is defined as a tuple
 \begin{equation}
 	<n_{W}, n_{F}, n_{N}, t>
 \end{equation}
-where,\\
+where,
 $W$ represents the \textit{web server} resource, $F$ represents the \textit{file server} resource and $N$ represents a private workstation with access to resources.
 Also, $n_{X} = <P,a,d>, X\in \{W, F, N\}$ represents the network state of the respective resources where,\\
 $P$ is the list of applications running on $n_{X}$, $a$ represents if any user accounts have been compromised and $d$ represents data integrity.
@@ -120,7 +122,7 @@ A few peculiar criticisms of the approach, based on the ones pointed out by the 
 \begin{itemize}
 	\item The \textit{payoff} of the attackers just rely on the time and maintenance cost of the administrators.
 		This approach may not cover all the possible reasons why an adversary launches an attack, and in turn, how damaging an adversary might actually be.
-		Take for example, an adversary with low magnitude $\beta$, say a \textit{Nation State Actor}.
+                Take for example, an adversary with low magnitude $\beta$, say a \textit{Nation State Actor} \cite{cyberactor}.
 		Such an adversary does no harm to the usual operations in short term and hence can be classified by the model with lesser \textit{payoff} while in reality, \textit{Nation State Actors} cause most the harm.
 	\item A network which serves even a medium sized business has a lot more nodes than analyzed here.
 		This ties into the fact that such an analysis would exponentially grow as more real world components are added.
@@ -129,18 +131,68 @@ A few peculiar criticisms of the approach, based on the ones pointed out by the 
 \end{itemize}
 
 \section*{Static Games}
-The static games, since by definition have imperfect definition, this leads to a single base of classification of such games.
-Static games further classified into,
+The static games, since by definition have imperfect information, lead to a single base of classification,
 \begin{itemize}
     \item Complete and Imperfect Information
     \item Incomplete and Imperfect Information
 \end{itemize}
+Jormakka \textit{et. al} \cite{static} define static game as a simultaneous strategy game.
+In Jormakka \textit{et. al} \cite{static}, presented a series of \textit{Complete and Imperfect Information} static games on \textit{Information Security War-fare}.
 
-%\begin{figure}[htbp]
-%\centerline{\includegraphics{fig1.png}}
-%\caption{Example of a figure caption.}
-%\label{fig}
-%\end{figure}
+The very first presented defines a terrorist and hostage scenario with the two players being the \textit{Terrorist, T} and the \textit{Government, G}.
+Both the players have two strategies, $\pi_{1}$ and $\pi_{2}$ with the former being to accept the other player's domination and latter being reject it.
+The payoffs can be summarized as $(\pi_{1}, \pi_{1}) = (u_{T} = -1, u_{G} = -1)$, $(\pi_{2}, \pi_{2}) = (u_{T} = -10, u_{G} = -10)$, $(\pi_{1}, \pi_{2}) = (u_{T} = -5, u_{G} = 0)$ and $(\pi_{2}, \pi_{1}) = (u_{T} = 1, u_{G} = -5)$.
+Player \textit{T's} mixed strategy\\
+$v_{T} = p_{T}p_{G}-10(1-p_{T})(1-p_{G})-5p_{T}(1-p_{G})+p_{G}(1-p_{T}) $,
+\begin{equation} \label{ptv}
+        \therefore v_{T} = p_{T}(5-6p_{T})-10+10p_{T}
+\end{equation}
+and similarly $v_{G}$,
+\begin{equation} \label{pgv}
+        v_{G} = p_{G}(5-6p_{T})-10+10p_{T}
+\end{equation}
+The Nash equilibria points $(p_{T}, p_{G})$ such that $p^{*}_{T}(p_{G})$ and $p^{*}_{T}(p_{G})$ can be $((1,0), (0, 1))$, \textit{i.e.}, maximizing one of the players' payoff.
+Another Nash equilibrium point can be obtained by differentiating \ref{ptv} and \ref{pgv} \textit{wrt.} $p_{T}$ and $p_{G}$ respectively.
+Thus, the Nash equilibria points are $((1,0), (0,1), (\frac{5}{6}, \frac{5}{7}))$.
+Citing this example, Jormakka \textit{et. al} \cite{static} propose that in an asymmetric war-fare situation, both the players cannot achieve the best \textit{payoff} at the same time, assuming rational and bold players.
+
+The second game presented by Jormakka \textit{et. al} \cite{static} is a scenario of an evildoer attacker attacking a network.
+The attacker, \textit{player A} has strategies $\pi_{A1}$, obfuscating the primary attach with a lot of secondary attacks and $\pi_{A2}$ as trying only primary attack.
+The victim, \textit{Player B} has strategies $\pi_{B1}$, detecting and blocking quantity while $\pi{B2}$ being, detecting and blocking only most important attacks.
+The \textit{payoffs} are defined as $(\pi_{A1}, \pi_{B1}) = (u_{A} = 4, u_{B} = -5)$, $(\pi_{A1}, \pi_{B2}) = (u_{A} = 3, u_{B} = -2)$, $(\pi_{A2}, \pi_{B1}) = (u_{A} = -10, u_{B} = 20)$ and $(\pi_{A2}, \pi_{B2}) = (u_{A} = 30, u_{B} = -20)$.
+The \textit{Player A's} mixed strategy can be,
+\begin{equation} \label{pva}
+        v_{A} = p_{A}(5p_{B}-2)+5-4p_{B}
+\end{equation}
+and \textit{Player B's},
+\begin{equation} \label{pvb}
+        v_{B} = p_{B}(2-5p_{A})-3+p_{A}
+\end{equation}
+The Nash Equilibrium is at the point $(p^{*}_{A}(p_{B}), p^{*}_{B}(p_{A})) = (\frac{2}{5}, \frac{2}{5})$ which is unique and stable.
+
+The third game presented by Jormakka \textit{et. al} \cite{static} is a paint a scenario where a vandal attacker is trying to bog down a network either by some means, say \textit{Denial of Service (DoS)} attack.
+The legitimate users using that network are $L_{j}, 2 \le j \le n$ which are considered as a single player and the vandal $V$ is the first player.
+Both the players have the strategies $\pi_{1}$ keep using the network and $\pi_{2}$ stay idle on the network.
+The maximum \textit{payoffs} for $V$ can be $m$ where $m$ legitimate users are on the network and the maximum \textit{payoff} for $L_{j}$ can be 1.
+The minimum \textit{payoff} for $V$ can be $0$ while for the legitimate users cab be $-1$.
+The \textit{payoffs} with mixed probable strategies can be,
+\begin{equation} \label{pvv}
+        v_{v} = (n-1)p_{v}p_{L}
+\end{equation}
+and for the legitimate users,
+\begin{equation} \label{pvl}
+        v_{v} = p_{L}(1-2p_{v})
+\end{equation}
+For the Nash equilibrium, when $\frac{1}{2} \le p_{V} \le 1$, $p_{L} = 0$ and $v_{L} = 0$.
+This just means that $V$ cannot win as the users can then stop using the service.
+
+\section*{Conclusions}
+The study presented by Jormakka \textit{et. al} \cite{static} has a slight edge over the one presented by Lye \textit{et. al} \cite{stochastic} since the former does not assume the actions of a player in a very particular fashion.
+In other words, the former study presents the games as well as the analysis in more of a practical manner than the latter.
+The various forms of games presented in \cite{static} do a good job in defining how real world players should approach the information war-fare situations.
+There might be a time to show force in order to hinder the opponent and there might also be times when changing defence strategies may lead to increased probability of mitigating attacks.
+There might also be times when no matter how much the player tries, there is no Nash equilibrium in favour of that player in the system.
+
 \printbibliography
 
 \end{document}
